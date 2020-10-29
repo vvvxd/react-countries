@@ -1,56 +1,47 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import SortBy from '../components/SortBy';
+import { fetchCountry } from '../redux/actions/countries';
 
 function MainPage() {
+  const dispatch = useDispatch();
+  const items = useSelector(({ countries }) => countries.items);
+
+  console.log(items);
+  React.useEffect(() => {
+    dispatch(fetchCountry());
+  }, []);
+
   return (
     <main className="main">
       <div className="main__inputs ">
         <input placeholder="Search for a country..." type="text" />
-        <div className="sort">
-          <div className="sort__label">
-            <svg
-              width="10"
-              height="6"
-              viewBox="0 0 10 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M10 5C10 5.16927 9.93815 5.31576 9.81445 5.43945C9.69075 5.56315 9.54427 5.625 9.375 5.625H0.625C0.455729 5.625 0.309245 5.56315 0.185547 5.43945C0.061849 5.31576 0 5.16927 0 5C0 4.83073 0.061849 4.68424 0.185547 4.56055L4.56055 0.185547C4.68424 0.061849 4.83073 0 5 0C5.16927 0 5.31576 0.061849 5.43945 0.185547L9.81445 4.56055C9.93815 4.68424 10 4.83073 10 5Z"
-                fill="#2C2C2C"
-              />
-            </svg>
-            <b>Сортировка по:</b>
-            <span>Show all</span>
-          </div>
-          <div className="sort__popup">
-            <ul>
-              <li>Show all</li>
-              <li>Africa</li>
-              <li>America</li>
-              <li>Asia</li>
-              <li>Europe</li>
-              <li>Oceania</li>
-            </ul>
-          </div>
-        </div>
+        <SortBy />
       </div>
       <div className="main__countries countries">
-        <div className="countries__item item">
-          <div className="item__img">
-            <img src="https://restcountries.eu/data/ala.svg" alt="" />
+        {items.map((item,id) => (
+          <div className="countries__item item" key={`${item.name}__${id}`}>
+            <div className="item__img">
+              <img src={item.flag} alt="" />
+            </div>
+            <div className="item__text">
+              <p>{item.name}</p>
+              <span>
+                <b>Population : </b>
+                {item.population}
+              </span>
+              <span>
+                <b>Region : </b>
+                {item.region}
+              </span>
+              <span>
+                <b>Capital: </b>
+                {item.capital}
+              </span>
+            </div>
           </div>
-          <div className="item__text">
-            <p>Estonia</p>
-            <span>
-              <b>Population : </b>124214124
-            </span>
-            <span>
-              <b>Region : </b>Asia
-            </span>
-            <span>
-              <b>Capital: </b>Moscov
-            </span>
-          </div>
-        </div>
+        ))}
       </div>
     </main>
   );
