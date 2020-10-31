@@ -1,47 +1,48 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Country from '../components/Country';
+import CountryLoader from '../components/CountryLoader';
 
 import SortBy from '../components/SortBy';
 import { fetchCountry } from '../redux/actions/countries';
+import { setSortBy } from '../redux/actions/filters';
+
+const sortItems = [
+  { name: 'Show all', type: 'all' },
+  { name: 'Africa', type: 'africa' },
+  { name: 'America', type: 'americas' },
+  { name: 'Asia', type: 'asia' },
+  { name: 'Europe', type: 'europe' },
+  { name: 'Oceania', type: 'oceania' },
+];
 
 function MainPage() {
   const dispatch = useDispatch();
   const items = useSelector(({ countries }) => countries.items);
+  const isLoaded = useSelector(({ countries }) => countries.isLoaded);
 
-  console.log(items);
+  const sortBy = useSelector(({ filters }) => filters.sortBy);
+
   React.useEffect(() => {
-    dispatch(fetchCountry());
-  }, []);
+    dispatch(fetchCountry(sortBy));
+  }, [sortBy]);
+
+  const onSelectRegion = (sort) => {
+    dispatch(setSortBy(sort));
+  };
 
   return (
     <main className="main">
       <div className="main__inputs ">
         <input placeholder="Search for a country..." type="text" />
-        <SortBy />
+        <SortBy sortItems={sortItems} sortBy={sortBy} onSelectRegion={onSelectRegion} />
       </div>
       <div className="main__countries countries">
-        {items.map((item,id) => (
-          <div className="countries__item item" key={`${item.name}__${id}`}>
-            <div className="item__img">
-              <img src={item.flag} alt="" />
-            </div>
-            <div className="item__text">
-              <p>{item.name}</p>
-              <span>
-                <b>Population : </b>
-                {item.population}
-              </span>
-              <span>
-                <b>Region : </b>
-                {item.region}
-              </span>
-              <span>
-                <b>Capital: </b>
-                {item.capital}
-              </span>
-            </div>
-          </div>
-        ))}
+        {isLoaded
+          ? items.map((item, id) => <Country key={`${item.name}__${id}`} item={item} />)
+          : Array(10)
+              .fill(0)
+              .map((_, id) => <CountryLoader key={id} />)}
       </div>
     </main>
   );
