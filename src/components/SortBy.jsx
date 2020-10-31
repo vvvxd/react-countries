@@ -1,8 +1,9 @@
 import React from 'react';
 
-function SortBy() {
+function SortBy({ sortItems, sortBy, onSelectRegion }) {
   const [visiblePopap, setVisiblePopup] = React.useState(false);
   const sortRef = React.useRef();
+  const activeLabel = sortItems.find((obj) => obj.type === sortBy).name;
 
   const changeVisible = () => {
     setVisiblePopup(!visiblePopap);
@@ -11,8 +12,14 @@ function SortBy() {
   const clickOutside = (e) => {
     const path = e.path || (e.composedPath && e.composedPath());
     if (!path.includes(sortRef.current)) {
-        setVisiblePopup(false);
+      setVisiblePopup(false);
     }
+  };
+  const onSelectItem = (index) => {
+    if (onSelectRegion) {
+      onSelectRegion(index);
+    }
+    setVisiblePopup(false);
   };
 
   React.useEffect(() => {
@@ -34,17 +41,16 @@ function SortBy() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={changeVisible}>Show all</span>
+        <span onClick={changeVisible}>{activeLabel}</span>
       </div>
       {visiblePopap && (
         <div className="sort__popup">
           <ul>
-            <li>Show all</li>
-            <li>Africa</li>
-            <li>America</li>
-            <li>Asia</li>
-            <li>Europe</li>
-            <li>Oceania</li>
+            {sortItems.map((item, id) => (
+              <li onClick={() => onSelectItem(item.type)} key={`${item}_${id}`}>
+                {item.name}
+              </li>
+            ))}
           </ul>
         </div>
       )}
