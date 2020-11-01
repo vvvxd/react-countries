@@ -1,8 +1,10 @@
 import React from 'react';
 
-function Country({ item }) {
+function Country({ item, onChangeCountry }) {
   return (
-    <div className="countries__item item">
+    <div
+      onClick={() => onChangeCountry(item.alpha3Code.toLowerCase())}
+      className="countries__item item">
       <div className="item__img">
         <img src={item.flag} alt="" />
       </div>

@@ -10,7 +10,7 @@ export const setCountry = (items) => ({
   payload: items,
 });
 
-export const fetchCountry = (sortBy) => (dispatch) => {
+export const fetchCounties = (sortBy) => (dispatch) => {
   dispatch(setLoaded(false));
   axios
     .get(`https://restcountries.eu/rest/v2/${sortBy === 'all' ? 'all' : `region/${sortBy}`}`)

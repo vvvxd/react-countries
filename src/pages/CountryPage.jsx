@@ -1,49 +1,62 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchCountry } from '../redux/actions/country';
 
 function CountryPage() {
+  const dispatch = useDispatch();
+  const activeItem = useSelector(({ country }) => country.activeItem);
+  const item = useSelector(({ country }) => country.item);
+
+  React.useEffect(() => {
+    dispatch(fetchCountry(activeItem));
+  }, []);
+
   return (
     <main className="country">
       <div className="country__container">
         <div className="country__button">
-          <a>
+          <Link to='/'>
             <i className="fas fa-arrow-left"></i>Back
-          </a>
+          </Link>
         </div>
         <div className="country__content content">
           <div className="content__img">
-            <img src="https://restcountries.eu/data/ala.svg" alt="" />
+            <img src={item.flag} alt="" />
           </div>
           <div className="content__text text">
-            <div className="text__title">Moscov</div>
+            <div className="text__title">{item.name}</div>
             <div className="text__info">
               <span>
-                <b> Native Name:</b> België
+                <b> Native Name: </b> {item.nativeName}
               </span>
               <span>
-                <b>Population:</b> 11,319,511
+                <b>Population: </b> {item.population}
               </span>
               <span>
-                <b>Region:</b> Europe
+                <b>Region: </b> {item.region}
               </span>
               <span>
-                <b>Sub Region:</b>  Western Europe
+                <b>Sub Region: </b> {item.subregion}
               </span>
               <span>
-                <b>Capital:</b> Brussels
+                <b>Capital: </b> {item.capital}
               </span>
               <span>
-                <b>Top Level Domain:</b> .be
+                <b>Top Level Domain: </b>
+                {item.topLevelDomain && item.topLevelDomain.map((item) => `${item}  `)}
               </span>
               <span>
-                <b>Currencies:</b> Euro 
+                <b>Currencies: </b>{' '}
+                {item.currencies && item.currencies.map((item) => `${item.name}  `)}
               </span>
               <span>
-                <b>Languages:</b> Dutch, French, German
+                <b>Languages: </b> {item.languages && item.languages.map((item) => `${item.name}  `)}
               </span>
             </div>
             <div className="text__border-country">
-                <span>Border countries</span>
-                <a href="">russia</a>
+              <span>Border countries</span>
+              <a href="">russia</a>
             </div>
           </div>
         </div>
