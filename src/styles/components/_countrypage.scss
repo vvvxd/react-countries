@@ -2,6 +2,7 @@
   &__container {
     width: 1830px;
     margin: 0 auto;
+    height: 89vh;
   }
   &__button {
     padding-top: 50px;
@@ -11,11 +12,13 @@
       background-color: #ffffff;
       border-radius: 10px;
       padding: 10px 30px;
+      text-decoration: none;
+      color: #000000;
       i {
         margin-right: 10px;
       }
     }
-    a:hover{
+    a:hover {
       border: 1px solid #bebebe;
       box-shadow: 1px 2px 20px #cfcfcf;
     }
@@ -60,7 +63,7 @@
       font-size: 23px;
       margin-right: 20px;
     }
-    a{
+    a {
       text-decoration: none;
       border: 1px solid #d7d7d7;
       box-shadow: 1px 2px 20px #e9e8e8;
@@ -70,7 +73,7 @@
       margin-right: 20px;
       color: #000000;
     }
-    a:hover{
+    a:hover {
       border: 1px solid #bebebe;
       box-shadow: 1px 2px 20px #cfcfcf;
     }
