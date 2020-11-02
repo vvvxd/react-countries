@@ -1,0 +1,115 @@
+.dark {
+  .header {
+    background-color: rgb(43, 57, 69);
+    border: 1px solid #252525;
+    box-shadow: 1px 2px 20px #000000;
+    &__title {
+      color: #ffffff;
+    }
+    &__change-theme {
+      i {
+        color: #ffffff;
+      }
+      span {
+        color: #ffffff;
+      }
+    }
+  }
+  .main {
+    background-color: #202c37;
+    &__inputs {
+      input {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #020202;
+      }
+      input:focus {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #636262;
+      }
+      select {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #333333;
+      }
+    }
+  }
+  .item {
+    background-color: rgb(43, 57, 69);
+    border: 1px solid #252525;
+    box-shadow: 1px 2px 20px #141414;
+    &__text {
+      color: #fff;
+    }
+  }
+
+  .sort {
+    position: relative;
+    &__label {
+      svg {
+        path {
+          fill: #ffffff;
+        }
+      }
+      b {
+        color: #ffffff;
+      }
+      span {
+        color: #bebebe;
+        border-bottom: 1px dashed #bebebe;
+      }
+    }
+
+    &__popup {
+      background: #ffffff;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
+
+      ul {
+        li {
+          &:hover {
+            background: rgba(80, 79, 79, 0.05);
+          }
+          &.active {
+            font-weight: bold;
+            color: #c4c4c4;
+          }
+        }
+      }
+    }
+  }
+  .country {
+    background-color: #202c37;
+    &__button {
+      a {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #141414;
+      }
+      a:hover {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #505050;
+      }
+    }
+  }
+  .content {
+    &__text {
+      color: #ffffff;
+    }
+  }
+  .text {
+    &__border-country {
+      h2 {
+        font-weight: 500;
+        font-size: 23px;
+        margin-right: 20px;
+      }
+      span {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #0c0c0c;
+
+        color: #000000;
+      }
+      span:hover {
+        border: 1px solid #252525;
+        box-shadow: 1px 2px 20px #333333;
+      }
+    }
+  }
+}

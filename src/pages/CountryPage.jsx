@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCountry } from '../redux/actions/country';
+import { activeCountry, fetchCountry } from '../redux/actions/country';
 
 function CountryPage() {
   const dispatch = useDispatch();
@@ -10,13 +10,17 @@ function CountryPage() {
 
   React.useEffect(() => {
     dispatch(fetchCountry(activeItem));
-  }, []);
+  }, [activeItem]);
+
+  const onChangeCountry = (country) => {
+    dispatch(activeCountry(country));
+  };
 
   return (
     <main className="country">
       <div className="country__container">
         <div className="country__button">
-          <Link to='/'>
+          <Link to="/">
             <i className="fas fa-arrow-left"></i>Back
           </Link>
         </div>
@@ -51,12 +55,18 @@ function CountryPage() {
                 {item.currencies && item.currencies.map((item) => `${item.name}  `)}
               </span>
               <span>
-                <b>Languages: </b> {item.languages && item.languages.map((item) => `${item.name}  `)}
+                <b>Languages: </b>{' '}
+                {item.languages && item.languages.map((item) => `${item.name}  `)}
               </span>
             </div>
             <div className="text__border-country">
-              <span>Border countries</span>
-              <a href="">russia</a>
+              <h2>Border countries</h2>
+              {item.borders &&
+                item.borders.map((item, id) => (
+                  <span key={id} onClick={() => onChangeCountry(item)}>
+                    {item}
+                  </span>
+                ))}
             </div>
           </div>
         </div>

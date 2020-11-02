@@ -10,10 +10,19 @@ export const setCountry = (items) => ({
   payload: items,
 });
 
-export const fetchCounties = (sortBy) => (dispatch) => {
+export const setInputValue = (text) => ({
+  type: 'SET_INPUT_VALUE',
+  payload: text,
+});
+
+export const fetchCounties = (sortBy, inputValue) => (dispatch) => {
   dispatch(setLoaded(false));
   axios
-    .get(`https://restcountries.eu/rest/v2/${sortBy === 'all' ? 'all' : `region/${sortBy}`}`)
+    .get(
+      `https://restcountries.eu/rest/v2/${sortBy === 'all' && inputValue === '' ? 'all' : ``}${
+        sortBy !== 'all' && inputValue === '' ? `region/${sortBy}` : ''
+      }${inputValue !== '' ? `name/${inputValue}` : ''}`,
+    )
     .then(({ data }) => {
       dispatch(setCountry(data));
     });
