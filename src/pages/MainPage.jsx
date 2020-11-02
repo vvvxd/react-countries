@@ -5,7 +5,7 @@ import CountryLoader from '../components/CountryLoader';
 import { useHistory } from 'react-router-dom';
 
 import SortBy from '../components/SortBy';
-import { fetchCounties } from '../redux/actions/countries';
+import { fetchCounties, setInputValue } from '../redux/actions/countries';
 import { setSortBy } from '../redux/actions/filters';
 import { activeCountry } from '../redux/actions/country';
 
@@ -20,15 +20,20 @@ const sortItems = [
 
 function MainPage() {
   const dispatch = useDispatch();
+
   const items = useSelector(({ countries }) => countries.items);
   const isLoaded = useSelector(({ countries }) => countries.isLoaded);
+  const inputValue = useSelector(({ countries }) => countries.inputValue);
+
   let history = useHistory();
 
   const sortBy = useSelector(({ filters }) => filters.sortBy);
 
+  const inpValue = React.useRef();
+
   React.useEffect(() => {
-    dispatch(fetchCounties(sortBy));
-  }, [sortBy]);
+    dispatch(fetchCounties(sortBy,inputValue));
+  }, [sortBy,inputValue]);
 
   const onSelectRegion = (sort) => {
     dispatch(setSortBy(sort));
@@ -39,10 +44,21 @@ function MainPage() {
     history.push('/country');
   };
 
+  const onChangeInput = () => {
+    let text = inpValue.current.value;
+    dispatch(setInputValue(text));
+  };
+
   return (
     <main className="main">
       <div className="main__inputs ">
-        <input placeholder="Search for a country..." type="text" />
+        <input
+          ref={inpValue}
+          placeholder="Search for a country..."
+          type="text"
+          value={inputValue}
+          onChange={onChangeInput}
+        />
         <SortBy sortItems={sortItems} sortBy={sortBy} onSelectRegion={onSelectRegion} />
       </div>
       <div className="main__countries countries">

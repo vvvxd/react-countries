@@ -1,6 +1,7 @@
 const initialState = {
   items: [],
   isLoaded: false,
+  inputValue: '',
 };
 
 const countries = (state = initialState, action) => {
@@ -11,11 +12,16 @@ const countries = (state = initialState, action) => {
         items: [...action.payload],
         isLoaded: true,
       };
-      case 'SET_LOADED':
-        return {
-          ...state,
-          isLoaded: action.payload,
-        };
+    case 'SET_LOADED':
+      return {
+        ...state,
+        isLoaded: action.payload,
+      };
+    case 'SET_INPUT_VALUE':
+      return {
+        ...state,
+        inputValue: action.payload,
+      };
     default:
       return state;
   }
