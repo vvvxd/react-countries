@@ -9,7 +9,13 @@ export const setActiveCountryItem = (payload) => ({
   payload,
 });
 
+export const setLoadingCountry = (payload) => ({
+  type: 'SET_LOADING_COUNTRY',
+  payload,
+});
+
 export const fetchCountry = (country) => (dispatch) => {
+  dispatch(setLoadingCountry(false));
   axios.get(`https://restcountries.eu/rest/v2/alpha/${country}`).then(({ data }) => {
     dispatch(setActiveCountryItem(data));
   });

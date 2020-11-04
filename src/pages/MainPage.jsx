@@ -24,6 +24,7 @@ function MainPage() {
   const items = useSelector(({ countries }) => countries.items);
   const isLoaded = useSelector(({ countries }) => countries.isLoaded);
   const inputValue = useSelector(({ countries }) => countries.inputValue);
+  const error = useSelector(({ countries }) => countries.error);
 
   let history = useHistory();
 
@@ -32,8 +33,8 @@ function MainPage() {
   const inpValue = React.useRef();
 
   React.useEffect(() => {
-    dispatch(fetchCounties(sortBy,inputValue));
-  }, [sortBy,inputValue]);
+    dispatch(fetchCounties(sortBy, inputValue));
+  }, [sortBy, inputValue]);
 
   const onSelectRegion = (sort) => {
     dispatch(setSortBy(sort));
@@ -62,13 +63,17 @@ function MainPage() {
         <SortBy sortItems={sortItems} sortBy={sortBy} onSelectRegion={onSelectRegion} />
       </div>
       <div className="main__countries countries">
-        {isLoaded
-          ? items.map((item, id) => (
-              <Country onChangeCountry={onChangeCountry} key={`${item.name}__${id}`} item={item} />
-            ))
-          : Array(10)
-              .fill(0)
-              .map((_, id) => <CountryLoader key={id} />)}
+        {error ? (
+          <p>Not found</p>
+        ) : isLoaded ? (
+          items.map((item, id) => (
+            <Country onChangeCountry={onChangeCountry} key={`${item.name}__${id}`} item={item} />
+          ))
+        ) : (
+          Array(10)
+            .fill(0)
+            .map((_, id) => <CountryLoader key={id} />)
+        )}
       </div>
     </main>
   );

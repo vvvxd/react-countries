@@ -2,7 +2,7 @@
   &__container {
     width: 1830px;
     margin: 0 auto;
-    height: 89vh;
+    min-height: 90vh;
   }
   &__button {
     padding-top: 50px;
@@ -30,10 +30,9 @@
 }
 .content {
   &__img {
-    max-width: 40%;
     margin-right: 20vh;
     img {
-      width: 100%;
+      max-width:600px ;
     }
   }
   &__text {

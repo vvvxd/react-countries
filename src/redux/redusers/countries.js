@@ -2,6 +2,7 @@ const initialState = {
   items: [],
   isLoaded: false,
   inputValue: '',
+  error: false,
 };
 
 const countries = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const countries = (state = initialState, action) => {
       return {
         ...state,
         isLoaded: action.payload,
+      };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        error: action.payload,
       };
     case 'SET_INPUT_VALUE':
       return {
