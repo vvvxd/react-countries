@@ -15,8 +15,14 @@ export const setInputValue = (text) => ({
   payload: text,
 });
 
+export const setError = (payload) => ({
+  type: 'SET_ERROR',
+  payload,
+});
+
 export const fetchCounties = (sortBy, inputValue) => (dispatch) => {
   dispatch(setLoaded(false));
+  dispatch(setError(false));
   axios
     .get(
       `https://restcountries.eu/rest/v2/${sortBy === 'all' && inputValue === '' ? 'all' : ``}${
@@ -25,5 +31,8 @@ export const fetchCounties = (sortBy, inputValue) => (dispatch) => {
     )
     .then(({ data }) => {
       dispatch(setCountry(data));
+    })
+    .catch((err) => {
+      dispatch(setError(true));
     });
 };

@@ -1,6 +1,7 @@
 const initialState = {
   item: {},
   activeItem: '',
+  isLoadeng: false,
 };
 
 const country = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const country = (state = initialState, action) => {
       return {
         ...state,
         item: action.payload,
+        isLoadeng: true,
+      };
+    case 'SET_LOADING_COUNTRY':
+      return {
+        ...state,
+        isLoadeng: action.payload,
       };
     default:
       return state;
