@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Country from '../components/Country';
 import CountryLoader from '../components/CountryLoader';
 import { useHistory } from 'react-router-dom';
-
 import SortBy from '../components/SortBy';
 import { fetchCounties, setInputValue } from '../redux/actions/countries';
 import { setSortBy } from '../redux/actions/filters';
@@ -19,6 +18,7 @@ const sortItems = [
 ];
 
 function MainPage() {
+
   const dispatch = useDispatch();
 
   const items = useSelector(({ countries }) => countries.items);

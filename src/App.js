@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Header from './components/Header';
@@ -11,8 +11,10 @@ function App() {
   return (
     <div className={activeTheme ? 'light' : 'dark'}>
       <Header />
-      <Route path="/" component={MainPage} exact />
-      <Route path="/country" component={CountryPage} exact />
+      <Switch>
+        <Route path="/country" component={CountryPage}  />
+        <Route path="/" component={MainPage}  />
+      </Switch>
     </div>
   );
 }
