@@ -22,6 +22,7 @@ function CountryPage() {
     dispatch(setActiveCountryItem(country));
     dispatch(activeCountry(''));
   };
+  
   return (
     <main className="country">
       <div className="country__container">
